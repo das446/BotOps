@@ -19,6 +19,10 @@ public class TempSpot : MonoBehaviour, IWorkerCanMoveTo {
             w.PickupItem(box);
             box = null;
         }
+
+        if (box != null) {
+            box.transform.position = transform.position;
+        }
     }
 
 }

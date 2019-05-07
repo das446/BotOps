@@ -13,9 +13,11 @@ public class ConveyerBelt : MonoBehaviour {
 
     [SerializeField] NumberBox boxPrefab;
     [SerializeField] Bomb bombPrefab;
+    [SerializeField] GameObject rightSprite, leftSprite;
 
     void Start() {
-
+        GetComponent<SpriteShifter>().uvAnimationRate = new Vector2(speed, 0);
+        NumberBox.Leave += CheckRemoveBox;
     }
 
     void Update() {
@@ -41,21 +43,20 @@ public class ConveyerBelt : MonoBehaviour {
         }
     }
 
-    private IPickupable MakeRandomPickupable()
-    {
-        NumberBox box = Instantiate(boxPrefab,start.position,Quaternion.identity);
-        box.SetNumber(UnityEngine.Random.Range(1,10));
+    private IPickupable MakeRandomPickupable() {
+        NumberBox box = Instantiate(boxPrefab, start.position, Quaternion.identity);
+        box.SetNumber(UnityEngine.Random.Range(1, 10));
         return box;
     }
 
     private void MoveBoxes() {
 
-        if(items.Count==0){return;}
+        if (items.Count == 0) { return; }
 
         for (int i = 0; i < items.Count; i++) {
             items[i].transform.Translate(Vector2.right * speed * Time.deltaTime);
         }
-        
+
         IPickupable last = items[items.Count - 1];
         if (last.transform.position.x >= goal.transform.position.x) {
             last.ReachGoal(goal);

@@ -15,6 +15,10 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
     [SerializeField] TMPro.TMP_Text text;
 
     public void OnWorkerReach(Worker w) {
+        bool success = w.PickupItem(this);
+        if (success) {
+            Leave(this);
+        }
 
     }
     private void OnMouseDown() {
@@ -31,7 +35,7 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
     }
 
     public void Discard() {
-        SmokeEffect();
+        //SmokeEffect();
         Destroy(gameObject);
     }
 
@@ -59,11 +63,28 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
 
     public new Transform transform => base.transform;
 
-    public void Modify(NumberBox box, Worker qw) {
+    public bool IsNumber => true;
+
+    public void Modify(NumberBox box, Worker w) {
+        Worker.Op op = w.op;
+        int x = _number;
+        if (op == Worker.Op.ADD) {
+            x = box._number + x;
+        } else if (op == Worker.Op.SUB) {
+            x = box._number - x;
+        } else {
+            x = box._number * x;
+        }
+
+        SetNumber(x);
 
     }
 
     public void ReachGoal(NumberGoal g) {
         g.Recieve(this);
+    }
+
+    public void GetPickedUp(Worker w) {
+        throw new NotImplementedException();
     }
 }

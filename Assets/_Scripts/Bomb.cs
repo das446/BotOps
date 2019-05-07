@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour, IPickupable {
+    public bool IsNumber => false;
 
     public static event Action<IPickupable> OnClick;
     public void Enter(ConveyerBelt c) {
@@ -23,5 +24,10 @@ public class Bomb : MonoBehaviour, IPickupable {
     public void ReachGoal(NumberGoal g) {
         g.Recieve(this);
         Destroy(gameObject);
+    }
+
+    public void GetPickedUp(Worker w)
+    {
+        throw new NotImplementedException();
     }
 }

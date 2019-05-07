@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     int lives;
 
     void Start() {
-        NumberBox.OnClick += MoveWorker;
+        NumberBox.OnClick += MoveWorkerToBox;
         TempSpot.OnClick += MoveWorker;
         NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
@@ -19,9 +19,23 @@ public class Player : MonoBehaviour {
     }
 
     private void MoveWorker(IWorkerCanMoveTo target) {
-        Debug.Log("MoveWorker");
+
         if (currentWorker != null) {
+            Debug.Log("MoveWorker");
             currentWorker.MoveToTarget(target);
+        }
+    }
+
+    private void MoveWorkerToBox(IWorkerCanMoveTo box) {
+
+        if (currentWorker != null) {
+            Debug.Log("MoveWorker");
+            int o = 5;
+            Vector2 offset = new Vector2(0, 2);
+            if (transform.position.y < box.transform.position.y) {
+                offset.y = -o;
+            }
+            currentWorker.MoveToTarget(box, offset);
         }
     }
 
@@ -36,8 +50,7 @@ public class Player : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    public void SetCurrentWorker(Worker worker)
-    {
+    public void SetCurrentWorker(Worker worker) {
         currentWorker = worker;
     }
 }
