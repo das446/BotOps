@@ -16,6 +16,17 @@ public class Worker : MonoBehaviour {
     public Op op;
     [SerializeField] Player player;
 
+    void Start(){
+        NumberBox.OnDiscard+=DropBox;
+    }
+
+    private void DropBox(IPickupable obj)
+    {
+        if(obj==held){
+            DropItem();
+        }
+    }
+
     public void MoveToTarget(IWorkerCanMoveTo t) {
         StopAllCoroutines();
         StartCoroutine(GotoTarget(t));

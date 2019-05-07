@@ -29,7 +29,7 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
     public void SetNumber(int x) {
         _number = x;
         if (_number <= 0) {
-            Discard();
+            _Discard();
         }
         text.text = x + "";
     }
@@ -71,7 +71,7 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
         if (op == Worker.Op.ADD) {
             x = box._number + x;
         } else if (op == Worker.Op.SUB) {
-            x = box._number - x;
+            x = x - box._number ;
         } else {
             x = box._number * x;
         }

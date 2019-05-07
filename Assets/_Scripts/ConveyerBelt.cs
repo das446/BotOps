@@ -15,21 +15,26 @@ public class ConveyerBelt : MonoBehaviour {
     [SerializeField] Bomb bombPrefab;
     [SerializeField] GameObject rightSprite, leftSprite;
 
+    [Range(0, 1f)]
+    [SerializeField] float bombChance;
+
     void Start() {
         GetComponent<SpriteShifter>().uvAnimationRate = new Vector2(speed, 0);
-        NumberBox.Leave += CheckRemoveBox;
+        NumberBox.Leave += CheckRemoveItem;
+        Bomb.Leave += CheckRemoveItem;
+
     }
 
     void Update() {
         MoveBoxes();
-        MakeBox();
+        MakeItem();
     }
 
     public void AddToQueu(IPickupable box) {
         queue = box;
     }
 
-    private void MakeBox() {
+    private void MakeItem() {
         respawnTimer -= Time.deltaTime;
         if (respawnTimer <= 0) {
             respawnTimer = respawnRate;
@@ -44,9 +49,14 @@ public class ConveyerBelt : MonoBehaviour {
     }
 
     private IPickupable MakeRandomPickupable() {
-        NumberBox box = Instantiate(boxPrefab, start.position, Quaternion.identity);
-        box.SetNumber(UnityEngine.Random.Range(1, 10));
-        return box;
+        if (UnityEngine.Random.Range(0, 1f) > bombChance) {
+            Bomb bomb = Instantiate(bombPrefab, start.position, Quaternion.identity);
+            return bomb;
+        } else {
+            NumberBox box = Instantiate(boxPrefab, start.position, Quaternion.identity);
+            box.SetNumber(UnityEngine.Random.Range(1, 10));
+            return box;
+        }
     }
 
     private void MoveBoxes() {
@@ -68,7 +78,7 @@ public class ConveyerBelt : MonoBehaviour {
 
     }
 
-    private void CheckRemoveBox(IPickupable box) {
+    private void CheckRemoveItem(IPickupable box) {
         if (items.Contains(box)) {
             items.Remove(box);
         }

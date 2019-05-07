@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour, IPickupable {
     public bool IsNumber => false;
+    public static event Action<IPickupable> Leave;
 
     public static event Action<IPickupable> OnClick;
     public void Enter(ConveyerBelt c) {
@@ -18,7 +19,12 @@ public class Bomb : MonoBehaviour, IPickupable {
     }
 
     public void OnWorkerReach(Worker w) {
-        throw new System.NotImplementedException();
+
+        bool success = w.PickupItem(this);
+        if (success) {
+            Leave(this);
+        }
+
     }
 
     public void ReachGoal(NumberGoal g) {
@@ -26,8 +32,7 @@ public class Bomb : MonoBehaviour, IPickupable {
         Destroy(gameObject);
     }
 
-    public void GetPickedUp(Worker w)
-    {
+    public void GetPickedUp(Worker w) {
         throw new NotImplementedException();
     }
 }
