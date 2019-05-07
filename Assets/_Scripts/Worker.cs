@@ -14,6 +14,7 @@ public class Worker : MonoBehaviour {
         MULT,
     }
     Op op;
+    [SerializeField] Player player;
 
     public void MoveToTarget(IWorkerCanMoveTo t) {
         StopAllCoroutines();
@@ -41,6 +42,10 @@ public class Worker : MonoBehaviour {
             yield return f;
         }
         t.OnWorkerReach(this);
+    }
+
+    private void OnMouseDown() {
+        player.SetCurrentWorker(this);
     }
 
 }
