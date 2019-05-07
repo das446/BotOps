@@ -12,24 +12,25 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
 
     public static List<IPickupable> pool = new List<IPickupable>();
 
+    [SerializeField] TMPro.TMP_Text text;
+
     public void OnWorkerReach(Worker w) {
 
-     }
-    private void OnMouseDown()
-    {
+    }
+    private void OnMouseDown() {
         OnClick(this);
     }
 
     public int number => _number;
     public void SetNumber(int x) {
         _number = x;
-        SetDisplay(_number);
         if (_number <= 0) {
             Discard();
         }
+        text.text = x + "";
     }
 
-    public void Discard(){
+    public void Discard() {
         SmokeEffect();
         Destroy(gameObject);
     }
@@ -40,8 +41,7 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
         Discard();
     }
 
-    public static IPickupable MakeRandom()
-    {
+    public static IPickupable MakeRandom() {
         throw new NotImplementedException();
     }
 
@@ -49,28 +49,21 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
         throw new NotImplementedException();
     }
 
-    private void SetDisplay(int number) {
+    public void Enter(ConveyerBelt c) {
         throw new NotImplementedException();
     }
 
-    public void Enter(ConveyerBelt c)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Exit(ConveyerBelt c)
-    {
+    public void Exit(ConveyerBelt c) {
         throw new NotImplementedException();
     }
 
     public new Transform transform => base.transform;
 
-    public void Modify(NumberBox box, Worker qw){
+    public void Modify(NumberBox box, Worker qw) {
 
     }
 
-    public void ReachGoal(NumberGoal g)
-    {
+    public void ReachGoal(NumberGoal g) {
         g.Recieve(this);
     }
 }

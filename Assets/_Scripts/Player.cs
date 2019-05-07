@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-    Worker currentWorker;
+    public Worker currentWorker;
     int points;
     int lives;
 
@@ -12,7 +12,6 @@ public class Player : MonoBehaviour {
         NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
         Bomb.OnClick += MoveWorker;
-
     }
 
     private void GetPoints(int x) {
@@ -20,6 +19,7 @@ public class Player : MonoBehaviour {
     }
 
     private void MoveWorker(IWorkerCanMoveTo target) {
+        Debug.Log("MoveWorker");
         if (currentWorker != null) {
             currentWorker.MoveToTarget(target);
         }
@@ -34,5 +34,10 @@ public class Player : MonoBehaviour {
 
     private void LoseGame() {
         throw new NotImplementedException();
+    }
+
+    public void SetCurrentWorker(Worker worker)
+    {
+        currentWorker = worker;
     }
 }
