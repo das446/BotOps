@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     public Worker currentWorker;
-    int points;
-    int lives;
+    [SerializeField] int points;
+    [SerializeField] int lives;
 
     void Start() {
         NumberBox.OnClick += MoveWorkerToBox;
         Garbage.OnClick += MoveWorker;
         TempSpot.OnClick += MoveWorker;
+        BoxDropoff.OnClick += MoveWorker;
         NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
-        Bomb.OnClick += MoveWorker;
+        Bomb.OnClick += MoveWorkerToBox;
     }
 
     private void GetPoints(int x) {

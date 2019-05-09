@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConveyerBelt : MonoBehaviour {
     List<IPickupable> items = new List<IPickupable>();
     [SerializeField] float speed;
-    IPickupable queue;
+    List<IPickupable> queue = new List<IPickupable>();
     [SerializeField] Transform start;
     [SerializeField] NumberGoal goal;
     [SerializeField] float respawnRate;
@@ -31,18 +31,20 @@ public class ConveyerBelt : MonoBehaviour {
     }
 
     public void AddToQueu(IPickupable box) {
-        queue = box;
+        queue.Add(box);
     }
 
     private void MakeItem() {
         respawnTimer -= Time.deltaTime;
         if (respawnTimer <= 0) {
             respawnTimer = respawnRate;
-            IPickupable next = queue;
-            if (next == null) {
+            IPickupable next;
+            if (queue.Count == 0) {
                 next = MakeRandomPickupable();
+            } else {
+                next = queue[0];
+                queue.RemoveAt(0);
             }
-            queue = null;
             next.transform.position = start.position;
             items.Insert(0, next);
         }

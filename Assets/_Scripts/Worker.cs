@@ -15,14 +15,16 @@ public class Worker : MonoBehaviour {
     }
     public Op op;
     [SerializeField] Player player;
+    [SerializeField] float waitTime;
+    Vector2 startPos;
 
-    void Start(){
-        NumberBox.OnDiscard+=DropBox;
+    void Start() {
+        NumberBox.OnDiscard += DropBox;
+        startPos = transform.position;
     }
 
-    private void DropBox(IPickupable obj)
-    {
-        if(obj==held){
+    private void DropBox(IPickupable obj) {
+        if (obj == held) {
             DropItem();
         }
     }
@@ -43,7 +45,7 @@ public class Worker : MonoBehaviour {
 
     public IPickupable DropItem() {
         IPickupable temp = held;
-        held.transform.parent=null;
+        held.transform.parent = null;
         held = null;
         return temp;
     }
@@ -78,6 +80,13 @@ public class Worker : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         t.OnWorkerReach(this);
+        if (held == null) {
+            yield return new WaitForSeconds(waitTime);
+            while (Vector2.Distance(transform.position, startPos) > 0.1f) {
+                transform.position = Vector2.MoveTowards(transform.position, startPos, speed * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
+            }
+        }
     }
 
     IEnumerator GotoTarget(IWorkerCanMoveTo t) {

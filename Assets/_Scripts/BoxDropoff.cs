@@ -4,19 +4,18 @@ using UnityEngine;
 public class BoxDropoff : MonoBehaviour, IWorkerCanMoveTo {
     public Transform transform => base.transform;
     [SerializeField] ConveyerBelt conveyerBelt;
-    public static event Action<BoxDropoff> onClick;
+    public static event Action<BoxDropoff> OnClick;
 
     private void OnMouseDown() {
-        OnClick();
-    }
-
-    public void OnClick() {
-        onClick(this);
+        OnClick(this);
     }
 
     public void OnWorkerReach(Worker w) {
         if (w.HasItem()) {
-            conveyerBelt.AddToQueu(w.DropItem());
+            IPickupable i = w.DropItem();
+            conveyerBelt.AddToQueu(i);
+            i.transform.position = transform.position;
+
         }
     }
 }
