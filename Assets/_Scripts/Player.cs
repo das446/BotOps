@@ -17,7 +17,7 @@ public class Player : MonoBehaviour {
     }
 
     private void GetPoints(int x) {
-        throw new NotImplementedException();
+        Debug.Log("Get " + x + " points");
     }
 
     private void MoveWorker(IWorkerCanMoveTo target) {

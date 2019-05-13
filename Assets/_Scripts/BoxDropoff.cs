@@ -7,7 +7,9 @@ public class BoxDropoff : MonoBehaviour, IWorkerCanMoveTo {
     public static event Action<BoxDropoff> OnClick;
 
     private void OnMouseDown() {
-        OnClick(this);
+        if (!conveyerBelt.Full()) {
+            OnClick(this);
+        }
     }
 
     public void OnWorkerReach(Worker w) {

@@ -19,7 +19,6 @@ public class ConveyerBelt : MonoBehaviour {
     [SerializeField] float bombChance;
 
     void Start() {
-        GetComponent<SpriteShifter>().uvAnimationRate = new Vector2(speed, 0);
         NumberBox.Leave += CheckRemoveItem;
         Bomb.Leave += CheckRemoveItem;
 
@@ -51,7 +50,7 @@ public class ConveyerBelt : MonoBehaviour {
     }
 
     private IPickupable MakeRandomPickupable() {
-        if (UnityEngine.Random.Range(0, 1f) > bombChance) {
+        if (UnityEngine.Random.Range(0, 1f) < bombChance) {
             Bomb bomb = Instantiate(bombPrefab, start.position, Quaternion.identity);
             return bomb;
         } else {
@@ -84,5 +83,9 @@ public class ConveyerBelt : MonoBehaviour {
         if (items.Contains(box)) {
             items.Remove(box);
         }
+    }
+
+    public bool Full() {
+        return queue.Count > 0;
     }
 }

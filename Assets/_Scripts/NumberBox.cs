@@ -82,6 +82,7 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
 
     public void ReachGoal(NumberGoal g) {
         g.Recieve(this);
+        _Discard();
     }
 
     public void GetPickedUp(Worker w) {
