@@ -10,6 +10,10 @@ public class Bomb : MonoBehaviour, IPickupable {
         throw new System.NotImplementedException();
     }
 
+    void Start(){
+        NumberGoal.BombExplodes+=CheckExplode;
+    }
+
     public void Exit(ConveyerBelt c) {
         throw new System.NotImplementedException();
     }
@@ -30,6 +34,13 @@ public class Bomb : MonoBehaviour, IPickupable {
     public void ReachGoal(NumberGoal g) {
         g.Recieve(this);
         Destroy(gameObject);
+    }
+
+    void CheckExplode(Bomb b){
+        Debug.Log("Check Explode");
+        if(b==this){
+            Destroy(gameObject);
+        }
     }
 
     public void GetPickedUp(Worker w) {

@@ -35,14 +35,14 @@ public class NumberBox : MonoBehaviour, IWorkerCanMoveTo, IPickupable {
     }
 
     public void Discard() {
-        //SmokeEffect();
-        Destroy(gameObject);
+        _Discard();
+        
     }
 
     private void _Discard() {
         IPickupable pickupable = this;
         OnDiscard(pickupable);
-        Discard();
+        Destroy(gameObject);
     }
 
     public static IPickupable MakeRandom() {

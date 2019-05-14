@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
         BoxDropoff.OnClick += MoveWorker;
         NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
+        NumberGoal.OnClick+=MoveWorker;
         Bomb.OnClick += MoveWorkerToBox;
         currTime = maxShiftTime;
     }
@@ -67,7 +68,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void LoseLife() {
+    private void LoseLife(Bomb b) {
         lives--;
         if (lives <= 0) {
             LoseGame();
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour {
     }
 
     private void LoseGame() {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void SetCurrentWorker(Worker worker) {
