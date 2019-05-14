@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class NumberGoal : MonoBehaviour {
 
@@ -7,9 +9,29 @@ public class NumberGoal : MonoBehaviour {
     public static event Action<int> ScorePoints;
     public static event Action BombExplodes;
     [SerializeField] TMPro.TMP_Text text;
+    [SerializeField] Image timeBar;
+    private float currGoalTime;
+    public float maxTime;
 
     void Start() {
         ChangeNumber();
+        currGoalTime = maxTime;
+    }
+
+    void Update() {
+        if (currGoalTime > 0f)
+        {
+            currGoalTime -= Time.deltaTime;
+        }
+        else
+        {
+            ChangeNumber();
+            currGoalTime = maxTime;
+            ScorePoints(-10);
+        }
+        float scale = currGoalTime / maxTime;
+        scale = scale > 1 ? 1 : scale;
+        timeBar.transform.localScale = new Vector3(1f, currGoalTime / maxTime, 1f);
     }
 
     private void ChangeNumber() {
@@ -22,6 +44,7 @@ public class NumberGoal : MonoBehaviour {
         if (box.number == goal) {
             ScoreBox(box);
             ChangeNumber();
+            currGoalTime = maxTime;
         }
     }
 
@@ -32,5 +55,6 @@ public class NumberGoal : MonoBehaviour {
 
     public void Recieve(Bomb bomb) {
         BombExplodes();
+        Destroy(bomb);
     }
 }

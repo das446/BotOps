@@ -1,10 +1,16 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     public Worker currentWorker;
     [SerializeField] int points;
     [SerializeField] int lives;
+    [SerializeField] Text text;
+    [SerializeField] Image timeBar;
+    private float currTime;
+    public float maxShiftTime;
 
     void Start() {
         NumberBox.OnClick += MoveWorkerToBox;
@@ -14,10 +20,30 @@ public class Player : MonoBehaviour {
         NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
         Bomb.OnClick += MoveWorkerToBox;
+        currTime = maxShiftTime;
+    }
+
+    void Update() {
+        if (currTime > 0f)
+        {
+            currTime -= Time.deltaTime;
+        }
+        else
+        {
+            currTime = 0f;
+        }
+        float scale = currTime / maxShiftTime;
+        scale = scale > 1 ? 1 : scale;
+        timeBar.transform.localScale = new Vector3(currTime / maxShiftTime, 1f, 1f);
+
+        if (Input.GetKey("escape"))
+            Application.Quit(); 
     }
 
     private void GetPoints(int x) {
         Debug.Log("Get " + x + " points");
+        points += x;
+        text.text = "Score: " + points;
     }
 
     private void MoveWorker(IWorkerCanMoveTo target) {
