@@ -18,6 +18,9 @@ public class Worker : MonoBehaviour {
     [SerializeField] float waitTime;
     Vector2 startPos;
 
+    [SerializeField] Sprite front, back;
+    [SerializeField] SpriteRenderer sr;
+
     void Start() {
         NumberBox.OnDiscard += DropBox;
         startPos = transform.position;
@@ -59,7 +62,7 @@ public class Worker : MonoBehaviour {
 
         if (held == null) {
             held = item;
-            held.transform.position = transform.position + Vector3.up * 5;
+            held.transform.position = transform.position + Vector3.up * 8;
             held.transform.parent = transform;
             return true;
         } else if (item.IsNumber && held.IsNumber) {
@@ -75,6 +78,11 @@ public class Worker : MonoBehaviour {
     IEnumerator GotoTarget(IWorkerCanMoveTo t, Vector3 offset) {
         Debug.Log("Move");
         Vector2 target = t.transform.position + offset;
+        if (target.y > transform.position.y) {
+            sr.sprite = back;
+        } else {
+            sr.sprite = front;
+        }
         while (Vector2.Distance(transform.position, t.transform.position + offset) > 5) {
             transform.position = Vector2.MoveTowards(transform.position, t.transform.position + offset, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
