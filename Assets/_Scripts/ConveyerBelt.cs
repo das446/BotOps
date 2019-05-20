@@ -21,7 +21,6 @@ public class ConveyerBelt : MonoBehaviour {
     void Start() {
         NumberBox.Leave += CheckRemoveItem;
         Bomb.Leave += CheckRemoveItem;
-
     }
 
     void Update() {
@@ -52,10 +51,13 @@ public class ConveyerBelt : MonoBehaviour {
     private IPickupable MakeRandomPickupable() {
         if (UnityEngine.Random.Range(0, 1f) < bombChance) {
             Bomb bomb = Instantiate(bombPrefab, start.position, Quaternion.identity);
+            if (bombChance >= 0.1f)
+                bombChance -= 0.1f;
             return bomb;
         } else {
             NumberBox box = Instantiate(boxPrefab, start.position, Quaternion.identity);
             box.SetNumber(UnityEngine.Random.Range(1, 10));
+            bombChance += 0.05f;
             return box;
         }
     }
