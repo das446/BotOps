@@ -997,7 +997,7 @@ MonoBehaviour:
     type: 3}
   rightSprite: {fileID: 0}
   leftSprite: {fileID: 0}
-  bombChance: 0.3
+  bombChance: 0.1
 --- !u!212 &925002619
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1199,7 +1199,7 @@ MonoBehaviour:
     type: 3}
   rightSprite: {fileID: 0}
   leftSprite: {fileID: 0}
-  bombChance: 0.3
+  bombChance: 0.1
 --- !u!212 &994262814
 SpriteRenderer:
   m_ObjectHideFlags: 0
