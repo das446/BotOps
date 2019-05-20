@@ -43,7 +43,7 @@ public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo
 
     private void ChangeNumber()
     {
-        int r = UnityEngine.Random.Range(10, 200);
+        int r = UnityEngine.Random.Range(10, 50);
         goal = r;
         text.text = "" + goal;
     }
