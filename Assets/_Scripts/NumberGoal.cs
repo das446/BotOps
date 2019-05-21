@@ -36,9 +36,8 @@ public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo
             currGoalTime = maxTime;
             ScorePoints(-10);
         }
-        float scale = currGoalTime / maxTime;
-        scale = scale > 1 ? 1 : scale;
-        timeBar.transform.localScale = new Vector3(1f, currGoalTime / maxTime, 1f);
+        float fill = currGoalTime / maxTime;
+        timeBar.fillAmount = fill;
     }
 
     private void ChangeNumber()

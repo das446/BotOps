@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
@@ -19,18 +19,15 @@ public class Player : MonoBehaviour {
         BoxDropoff.OnClick += MoveWorker;
         NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
-        NumberGoal.OnClick+=MoveWorker;
+        NumberGoal.OnClick += MoveWorker;
         Bomb.OnClick += MoveWorkerToBox;
         currTime = maxShiftTime;
     }
 
     void Update() {
-        if (currTime > 0f)
-        {
+        if (currTime > 0f) {
             currTime -= Time.deltaTime;
-        }
-        else
-        {
+        } else {
             currTime = 0f;
         }
         float scale = currTime / maxShiftTime;
@@ -38,7 +35,7 @@ public class Player : MonoBehaviour {
         timeBar.transform.localScale = new Vector3(currTime / maxShiftTime, 1f, 1f);
 
         if (Input.GetKey("escape"))
-            Application.Quit(); 
+            Application.Quit();
     }
 
     private void GetPoints(int x) {
@@ -76,7 +73,8 @@ public class Player : MonoBehaviour {
     }
 
     private void LoseGame() {
-        //throw new NotImplementedException();
+        PlayerPrefs.SetInt("Score", points);
+        Menus.LoadSceneStatic(2);
     }
 
     public void SetCurrentWorker(Worker worker) {
