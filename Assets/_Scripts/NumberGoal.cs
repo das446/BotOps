@@ -1,10 +1,9 @@
 using System;
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo
-{
+public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo {
 
     [SerializeField] int goal;
     public static event Action<int> ScorePoints;
@@ -13,25 +12,21 @@ public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo
     [SerializeField] Image timeBar;
     private float currGoalTime;
     public float maxTime;
+    [SerializeField] int max;
 
     public static event Action<NumberGoal> OnClick;
 
     public Transform transform => base.transform;
 
-    void Start()
-    {
+    void Start() {
         ChangeNumber();
         currGoalTime = maxTime;
     }
 
-    void Update()
-    {
-        if (currGoalTime > 0f)
-        {
+    void Update() {
+        if (currGoalTime > 0f) {
             currGoalTime -= Time.deltaTime;
-        }
-        else
-        {
+        } else {
             ChangeNumber();
             currGoalTime = maxTime;
             ScorePoints(-10);
@@ -40,61 +35,50 @@ public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo
         timeBar.fillAmount = fill;
     }
 
-    private void ChangeNumber()
-    {
-        int r = UnityEngine.Random.Range(10, 50);
+    private void ChangeNumber() {
+        int r = UnityEngine.Random.Range(10, max);
         goal = r;
         text.text = "" + goal;
     }
 
-    public void Recieve(NumberBox box)
-    {
-        if (box.number == goal)
-        {
+    public void Recieve(NumberBox box) {
+        if (box.number == goal) {
             ScoreBox(box);
             ChangeNumber();
             currGoalTime = maxTime;
             Audio.PlaySound("Success");
-        }
-        else{
+        } else {
             box.Discard();
             Audio.PlaySound("Wrong");
+            currGoalTime -= 1;
         }
     }
 
-    private void ScoreBox(NumberBox box)
-    {
+    private void ScoreBox(NumberBox box) {
         ScorePoints(goal);
         Destroy(box.gameObject);
     }
 
-    public void Recieve(Bomb bomb)
-    {
+    public void Recieve(Bomb bomb) {
         BombExplodes(bomb);
-        Debug.Log("Destroy Bomb");
+        currGoalTime -= maxTime / 2;
     }
 
-
-    private void OnMouseDown()
-    {
+    private void OnMouseDown() {
         OnClick(this);
     }
 
+    public void OnWorkerReach(Worker w) {
 
-    public void OnWorkerReach(Worker w)
-    {
-        
-        if (w.HasItem())
-        {
+        if (w.HasItem()) {
             IPickupable p = w.DropItem();
 
-            if(p.IsNumber){
+            if (p.IsNumber) {
                 Debug.Log("recieve number box");
-                Recieve((NumberBox)p);
-            }
-            else{
+                Recieve((NumberBox) p);
+            } else {
                 Debug.Log("recieve bomb");
-                Recieve((Bomb)p);
+                Recieve((Bomb) p);
             }
         }
     }

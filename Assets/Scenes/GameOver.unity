@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd0ec774a9383bd4fa0be93ad4fc4432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loseText: {fileID: 0}
+  loseText: {fileID: 811748915}
 --- !u!114 &1591848849
 MonoBehaviour:
   m_ObjectHideFlags: 0

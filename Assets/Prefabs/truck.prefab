@@ -172,6 +172,7 @@ MonoBehaviour:
   text: {fileID: 1888168286066561598}
   timeBar: {fileID: 2652178025994749245}
   maxTime: 60
+  max: 30
 --- !u!61 &1498743141
 BoxCollider2D:
   m_ObjectHideFlags: 0

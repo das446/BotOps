@@ -17,7 +17,6 @@ public class Player : MonoBehaviour {
         Garbage.OnClick += MoveWorker;
         TempSpot.OnClick += MoveWorker;
         BoxDropoff.OnClick += MoveWorker;
-        NumberGoal.BombExplodes += LoseLife;
         NumberGoal.ScorePoints += GetPoints;
         NumberGoal.OnClick += MoveWorker;
         Bomb.OnClick += MoveWorkerToBox;

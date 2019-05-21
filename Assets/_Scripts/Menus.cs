@@ -8,7 +8,7 @@ public class Menus : MonoBehaviour
     public Text loseText;
     void Start(){
         if(loseText!=null){
-            loseText.text = "Your Score: "+PlayerPrefs.GetInt("Score");
+            loseText.text = "Your Score: "+PlayerPrefs.GetInt("Score",0);
         }
     }
 
