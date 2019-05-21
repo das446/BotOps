@@ -7,10 +7,12 @@ public class Player : MonoBehaviour {
     public Worker currentWorker;
     [SerializeField] int points;
     [SerializeField] int lives;
-    [SerializeField] Text text;
+    [SerializeField] Text ScoreText;
+    [SerializeField] Text GoalText;
     [SerializeField] Image timeBar;
     private float currTime;
     public float maxShiftTime;
+    public float levelGoal;
 
     void Start() {
         NumberBox.OnClick += MoveWorkerToBox;
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour {
         NumberGoal.OnClick += MoveWorker;
         Bomb.OnClick += MoveWorkerToBox;
         currTime = maxShiftTime;
+        GoalText.text = "Goal: " + levelGoal;
     }
 
     void Update() {
@@ -35,11 +38,16 @@ public class Player : MonoBehaviour {
 
         if (Input.GetKey("escape"))
             Application.Quit();
+
+        if (points >= levelGoal)
+        {
+            IncreaseLevel();
+        }
     }
 
     private void GetPoints(int x) {
         points += x;
-        text.text = "Score: " + points;
+        ScoreText.text = "Score: " + points;
     }
 
     private void MoveWorker(IWorkerCanMoveTo target) {
@@ -66,6 +74,16 @@ public class Player : MonoBehaviour {
         if (lives <= 0) {
             LoseGame();
         }
+    }
+
+    private void IncreaseLevel()
+    {
+        points = 0;
+        levelGoal += 10;
+        currTime = maxShiftTime;
+
+        GoalText.text = "Goal: " + levelGoal;
+        ScoreText.text = "Score: " + points;
     }
 
     private void LoseGame() {
