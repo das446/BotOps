@@ -69,6 +69,14 @@ public class Player : MonoBehaviour {
     }
 
     private void LoseGame() {
+        NumberBox.OnClick -= MoveWorkerToBox;
+        Garbage.OnClick -= MoveWorker;
+        TempSpot.OnClick -= MoveWorker;
+        BoxDropoff.OnClick -= MoveWorker;
+        NumberGoal.ScorePoints -= GetPoints;
+        NumberGoal.OnClick -= MoveWorker;
+        Bomb.OnClick -= MoveWorkerToBox;
+        currTime = maxShiftTime;
         PlayerPrefs.SetInt("Score", points);
         Menus.LoadSceneStatic(2);
     }
