@@ -39,7 +39,6 @@ public class Player : MonoBehaviour {
     }
 
     private void GetPoints(int x) {
-        Debug.Log("Get " + x + " points");
         points += x;
         text.text = "Score: " + points;
     }
@@ -47,7 +46,6 @@ public class Player : MonoBehaviour {
     private void MoveWorker(IWorkerCanMoveTo target) {
 
         if (currentWorker != null) {
-            Debug.Log("MoveWorker");
             currentWorker.MoveToTarget(target);
         }
     }
@@ -55,7 +53,6 @@ public class Player : MonoBehaviour {
     private void MoveWorkerToBox(IWorkerCanMoveTo box) {
 
         if (currentWorker != null) {
-            Debug.Log("MoveWorker");
             int o = 5;
             Vector2 offset = new Vector2(0, 2);
             if (transform.position.y < box.transform.position.y) {

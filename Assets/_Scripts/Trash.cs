@@ -8,6 +8,7 @@ public class Trash : MonoBehaviour, IWorkerCanMoveTo {
     public void OnWorkerReach(Worker w) {
         if (w.HasItem()) {
             Destroy(w.DropItem().transform.gameObject);
+            Audio.PlaySound("Trash");
         }
     }
 

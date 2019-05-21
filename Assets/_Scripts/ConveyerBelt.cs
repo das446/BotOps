@@ -67,7 +67,12 @@ public class ConveyerBelt : MonoBehaviour {
         if (items.Count == 0) { return; }
 
         for (int i = 0; i < items.Count; i++) {
-            items[i].transform.Translate(Vector2.right * speed * Time.deltaTime);
+            if (items[i] == null) {
+                items.RemoveAt(i);
+                i--;
+            } else {
+                items[i].transform.Translate(Vector2.right * speed * Time.deltaTime);
+            }
         }
 
         IPickupable last = items[items.Count - 1];

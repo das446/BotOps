@@ -39,11 +39,12 @@ public class Bomb : MonoBehaviour, IPickupable {
     void CheckExplode(Bomb b){
         Debug.Log("Check Explode");
         if(b==this){
+            Audio.PlaySound("Explosion");
             Destroy(gameObject);
         }
     }
 
     public void GetPickedUp(Worker w) {
-        throw new NotImplementedException();
+        
     }
 }

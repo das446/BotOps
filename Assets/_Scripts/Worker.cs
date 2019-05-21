@@ -64,19 +64,20 @@ public class Worker : MonoBehaviour {
             held = item;
             held.transform.position = transform.position + Vector3.up * 8;
             held.transform.parent = transform;
+            Audio.PlaySound("Pickup");
             return true;
         } else if (item.IsNumber && held.IsNumber) {
             NumberBox itemBox = (NumberBox) item;
             NumberBox heldBox = (NumberBox) held;
             heldBox.Modify(itemBox, this);
             itemBox.Discard();
+            Audio.PlaySound("Pickup");
             return true;
         }
         return false;
     }
 
     IEnumerator GotoTarget(IWorkerCanMoveTo t, Vector3 offset) {
-        Debug.Log("Move");
         Vector2 target = t.transform.position + offset;
         if (target.y > transform.position.y) {
             sr.sprite = back;

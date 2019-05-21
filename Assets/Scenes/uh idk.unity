@@ -701,7 +701,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.083385825, y: -0.08356094}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -712,7 +712,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.33, y: 10.34}
+  m_Size: {x: 3.9938252, y: 5.159191}
   m_EdgeRadius: 0
 --- !u!1 &609907575
 GameObject:
@@ -819,7 +819,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b59a471f7c341fa4ea2b26fe7d53d2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffects: []
+  soundEffects:
+  - {fileID: 11400000, guid: 573aeae6cd8d4434a866d457c99853d4, type: 2}
+  - {fileID: 11400000, guid: ed8e13976b587b44c9a49e4c24838611, type: 2}
+  - {fileID: 11400000, guid: cca2c193872e7fd4dbd19dcbcd90b42b, type: 2}
+  - {fileID: 11400000, guid: 5bce8a471d88ced41b47abc10e8d6e7a, type: 2}
+  - {fileID: 11400000, guid: 047b4f04db6da954a97ca0ade31f6f5d, type: 2}
   DefaultVolume: 1
 --- !u!114 &657188109
 MonoBehaviour:
@@ -1131,12 +1136,12 @@ PrefabInstance:
     - target: {fileID: 1888168286066561598, guid: 7e0551550d9220042a1e4e17cac83bc6,
         type: 3}
       propertyPath: m_havePropertiesChanged
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1888168286066561598, guid: 7e0551550d9220042a1e4e17cac83bc6,
         type: 3}
       propertyPath: m_isInputParsingRequired
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 395329343673878186, guid: 7e0551550d9220042a1e4e17cac83bc6,
         type: 3}

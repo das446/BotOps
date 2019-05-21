@@ -54,16 +54,18 @@ public class NumberGoal : MonoBehaviour, IWorkerCanMoveTo
             ScoreBox(box);
             ChangeNumber();
             currGoalTime = maxTime;
+            Audio.PlaySound("Success");
         }
         else{
             box.Discard();
+            Audio.PlaySound("Wrong");
         }
     }
 
     private void ScoreBox(NumberBox box)
     {
         ScorePoints(goal);
-        Destroy(box);
+        Destroy(box.gameObject);
     }
 
     public void Recieve(Bomb bomb)
