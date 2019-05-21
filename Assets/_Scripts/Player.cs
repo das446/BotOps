@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
     public float maxShiftTime;
     public float levelGoal;
 
+    public static event Action Lose;
+
     void Start() {
         NumberBox.OnClick += MoveWorkerToBox;
         Garbage.OnClick += MoveWorker;
@@ -39,8 +41,7 @@ public class Player : MonoBehaviour {
         if (Input.GetKey("escape"))
             Application.Quit();
 
-        if (points >= levelGoal)
-        {
+        if (points >= levelGoal) {
             IncreaseLevel();
         }
     }
@@ -76,8 +77,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void IncreaseLevel()
-    {
+    private void IncreaseLevel() {
         points = 0;
         levelGoal += 10;
         currTime = maxShiftTime;
@@ -87,6 +87,7 @@ public class Player : MonoBehaviour {
     }
 
     private void LoseGame() {
+        Lose();
         NumberBox.OnClick -= MoveWorkerToBox;
         Garbage.OnClick -= MoveWorker;
         TempSpot.OnClick -= MoveWorker;

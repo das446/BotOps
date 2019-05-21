@@ -24,6 +24,12 @@ public class Worker : MonoBehaviour {
     void Start() {
         NumberBox.OnDiscard += DropBox;
         startPos = transform.position;
+        Player.Lose += OnLose;
+    }
+
+    private void OnLose() {
+        NumberBox.OnDiscard -= DropBox;
+        Player.Lose -= OnLose;
     }
 
     private void DropBox(IPickupable obj) {

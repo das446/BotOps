@@ -21,6 +21,13 @@ public class ConveyerBelt : MonoBehaviour {
     void Start() {
         NumberBox.Leave += CheckRemoveItem;
         Bomb.Leave += CheckRemoveItem;
+        Player.Lose += OnLose;
+    }
+
+    private void OnLose() {
+        NumberBox.Leave -= CheckRemoveItem;
+        Bomb.Leave -= CheckRemoveItem;
+        Player.Lose -= OnLose;
     }
 
     void Update() {

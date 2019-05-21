@@ -12,6 +12,13 @@ public class Bomb : MonoBehaviour, IPickupable {
 
     void Start(){
         NumberGoal.BombExplodes+=CheckExplode;
+        Player.Lose+=OnLose;
+    }
+
+    private void OnLose()
+    {
+        NumberGoal.BombExplodes-=CheckExplode;
+        Player.Lose-=OnLose;
     }
 
     public void Exit(ConveyerBelt c) {
